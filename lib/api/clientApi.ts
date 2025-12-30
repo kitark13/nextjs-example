@@ -1,4 +1,4 @@
-import axios from "axios";
+import { nextServer } from "./api";
 
 export type Note = {
   id: string;
@@ -50,15 +50,7 @@ type CheckSessionRequest = {
   success: boolean;
 };
 
-axios.defaults.baseURL = "https://next-v1-notes-api.goit.study";
-// axios.defaults.headers.common[
-//   "Authorization"
-// ] = `Bearer ${process.env.NEXT_PUBLIC_NOTEHUB_TOKEN}`;
-
-const nextServer = axios.create({
-  baseURL: "http://localhost:3000/api",
-  withCredentials: true,
-});
+// axios.defaults.baseURL = "https://next-v1-notes-api.goit.study";
 
 const delay = (ms: number) =>
   new Promise((resolve) => {
@@ -113,4 +105,18 @@ export const getMe = async () => {
 
 export const logout = async (): Promise<void> => {
   await nextServer.post("/auth/logout");
+};
+
+export type UpdateUserRequest = { userName?: string; photoUrl?: string };
+
+export const updateMe = async (payload: UpdateUserRequest) => {
+  const res = await nextServer.put<User>("/auth/me", payload);
+  return res.data;
+};
+
+export const uploadImage = async (file: File): Promise<string> => {
+  const formData = new FormData();
+  formData.append("file", file);
+  const { data } = await nextServer.post("/upload", formData);
+  return data.url;
 };

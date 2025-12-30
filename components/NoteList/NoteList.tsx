@@ -1,4 +1,4 @@
-import type { Note } from "@/lib/api";
+import type { Note } from "@/lib/api/api";
 import NoteItem from "../NoteItem/NoteItem";
 
 type Props = {

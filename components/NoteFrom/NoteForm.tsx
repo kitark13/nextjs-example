@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import { Category, createNote, NewNoteData } from "@/lib/api";
+import { Category, createNote, NewNoteData } from "@/lib/api/api";
 import { useNoteDraftStore } from "@/lib/stores/noteStore";
 
 type Props = { categories: Category[] };
